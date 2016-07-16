@@ -76,14 +76,4 @@ reader.on('event',function(data){
       .setCharacteristic(Characteristic.CurrentRelativeHumidity, FAKE_SENSOR.currentHumidity);
    }
 });
-///randomize our temperature reading every 3 seconds
-// setInterval(function() {
-  
-//   FAKE_SENSOR.randomizeTemperature();
-  
-//   // update the characteristic value so interested iOS devices can get notified
-//   sensor
-//     .getService(Service.TemperatureSensor)
-//     .setCharacteristic(Characteristic.CurrentTemperature, FAKE_SENSOR.currentTemperature);
-  
-// }, 3000);
+
