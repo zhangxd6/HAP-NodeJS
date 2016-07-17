@@ -1,6 +1,36 @@
 // HomeKit types required
 var types = require("./types.js");
 var exports = module.exports = {};
+var five = require('johnny-five');
+var ChipIO = require('chip-io');
+var debug = require('debug')('GarageDoorOpener');
+
+var board = new five.Board({
+  io:new ChipIO(),
+  repl:false
+});
+
+board.on('ready',function(){
+  this.pinMode(53,five.Pin.OUTPUT);
+  this.digitalWrite(53,0);
+});
+
+function toogleButton(){
+   var board = new five.Board({
+     io:new ChipIO(),
+     repl:false,
+     debug:false
+  });
+   board.on('ready',function(){
+    self = this;
+    self.pinMode(53,five.Pin.OUTPUT);
+    self.digitalWrite(53,1);
+    setTimeout(function(){
+     self.digitalWrite(53,0);
+    },800);
+   });
+};
+
 
 var execute = function(accessory,characteristic,value) {
   console.log("executed accessory: " + accessory + ", and characteristic: " + characteristic + ", with value: " +  value + "."); 
@@ -99,8 +129,9 @@ exports.accessory = {
     },{
       cType: types.TARGET_DOORSTATE_CTYPE,
       onUpdate: function(value) { 
-        console.log("Change:",value); 
-        execute("Garage Door - target door state", "Current State", value); 
+        debug("TargetChange:",value); 
+	    toogleButton();
+       execute("Garage Door - target door state", "Current State", value); 
       },
       onRead: function(callback) {
         console.log("Read:");
