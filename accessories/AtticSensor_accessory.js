@@ -19,12 +19,12 @@ var FAKE_SENSOR = {
   },
   setHumidity: function(temp) {
     // randomize temperature to a value between 0 and 100
-    FAKE_SENSOR.currentHumidity = temp+ Math.random()*10;
+    FAKE_SENSOR.currentHumidity = temp;//+ Math.random()*10;
     debug('currentHumidity:'+FAKE_SENSOR.currentHumidity);
   },
   setTemperature: function(temp) {
     // randomize temperature to a value between 0 and 100
-    FAKE_SENSOR.currentTemperature = temp+ Math.round(Math.random() * 100);
+    FAKE_SENSOR.currentTemperature = temp;//+ Math.round(Math.random() * 100);
     debug('currentTemperature:'+FAKE_SENSOR.currentTemperature);
   },randomizeTemperature: function() {
     // randomize temperature to a value between 0 and 100
@@ -70,7 +70,7 @@ reader.on('event',function(data){
      sensor
       .getService(Service.TemperatureSensor)
       .setCharacteristic(Characteristic.CurrentTemperature, FAKE_SENSOR.currentTemperature);
-     FAKE_SENSOR.setTemperature(data.humidity);
+    // FAKE_SENSOR.setTemperature(data.humidity);
      sensor
       .getService(Service.HumiditySensor)
       .setCharacteristic(Characteristic.CurrentRelativeHumidity, FAKE_SENSOR.currentHumidity);
