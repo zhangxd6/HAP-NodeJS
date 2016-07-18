@@ -11,6 +11,12 @@ var FAKE_SENSOR = {
   currentTemperature: 50,
   currentHumidity:50,
   getCharacteristic:function(params) {
+    if(params===Characteristic.CurrentTemperature)
+      return FAKE_SENSOR.currentTemperature
+    else if(params === Characteristic.CurrentRelativeHumidity)
+     return FAKE_SENSOR.currentHumidity;
+  },
+  getCurrentHumidity:function() {
     return FAKE_SENSOR.currentHumidity;
   },
   getTemperature: function() { 
@@ -20,13 +26,14 @@ var FAKE_SENSOR = {
   setHumidity: function(temp) {
     // randomize temperature to a value between 0 and 100
     FAKE_SENSOR.currentHumidity = temp+ Math.random()*10;
-    debug('garage currentHumidity:'+FAKE_SENSOR.currentHumidity);
+    debug('currentHumidity:'+FAKE_SENSOR.currentHumidity);
   },
   setTemperature: function(temp) {
     // randomize temperature to a value between 0 and 100
     FAKE_SENSOR.currentTemperature = temp+ Math.round(Math.random() * 100);
-    debug('garage currentTemperature:'+FAKE_SENSOR.currentTemperature);
-  },randomizeTemperature: function() {
+    debug('currentTemperature:'+FAKE_SENSOR.currentTemperature);
+  },
+  randomizeTemperature: function() {
     // randomize temperature to a value between 0 and 100
     FAKE_SENSOR.currentTemperature = Math.round(Math.random() * 100);
   }
@@ -59,7 +66,7 @@ sensor
   sensor.addService(Service.HumiditySensor)
   .getCharacteristic(Characteristic.CurrentRelativeHumidity)
   .on('get',function(callback) {
-    callback(null,FAKE_SENSOR.getCurrentHumidity);
+    callback(null,FAKE_SENSOR.getCurrentHumidity());
   });
 
 reader.on('event',function(data){
