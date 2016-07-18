@@ -4,6 +4,8 @@
   "description": "HAP-NodeJS is a Node.js implementation of HomeKit Accessory Server.",
   "main": "index.js",
   "dependencies": {
+    "azure-iot-device": "^1.0.9",
+    "azure-iot-device-amqp": "^1.0.9",
     "chip-io": "^1.1.0",
     "curve25519": "git://github.com/KhaosT/node-curve25519",
     "debug": "^2.2.0",

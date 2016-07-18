@@ -5,15 +5,6 @@ var five = require('johnny-five');
 var ChipIO = require('chip-io');
 var debug = require('debug')('GarageDoorOpener');
 
-var board = new five.Board({
-  io:new ChipIO(),
-  repl:false
-});
-
-board.on('ready',function(){
-  this.pinMode(53,five.Pin.OUTPUT);
-  this.digitalWrite(53,0);
-});
 
 function toogleButton(){
    var board = new five.Board({
@@ -38,7 +29,7 @@ var execute = function(accessory,characteristic,value) {
 
 exports.accessory = {
   displayName: "Garage Door Opener",
-  username: "3C:5A:3D:EE:5E:FA",
+  username: "3C:5A:3D:EE:5E:FD",
   pincode: "031-45-154",
   services: [{
     sType: types.ACCESSORY_INFORMATION_STYPE, 

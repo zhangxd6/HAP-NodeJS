@@ -25,12 +25,12 @@ var FAKE_SENSOR = {
   },
   setHumidity: function(temp) {
     // randomize temperature to a value between 0 and 100
-    FAKE_SENSOR.currentHumidity = temp+ Math.random()*10;
+    FAKE_SENSOR.currentHumidity = temp;
     debug('currentHumidity:'+FAKE_SENSOR.currentHumidity);
   },
   setTemperature: function(temp) {
     // randomize temperature to a value between 0 and 100
-    FAKE_SENSOR.currentTemperature = temp+ Math.round(Math.random() * 100);
+    FAKE_SENSOR.currentTemperature = temp;
     debug('currentTemperature:'+FAKE_SENSOR.currentTemperature);
   },
   randomizeTemperature: function() {
@@ -38,7 +38,6 @@ var FAKE_SENSOR = {
     FAKE_SENSOR.currentTemperature = Math.round(Math.random() * 100);
   }
 }
-
 
 //console.log(reader);
 // Generate a consistent UUID for our Temperature Sensor Accessory that will remain the same
@@ -50,7 +49,7 @@ var sensorUUID = uuid.generate('hap-nodejs:accessories:garage-sensor');
 var sensor = exports.accessory = new Accessory('garageSensor', sensorUUID);
 
 // Add properties for publishing (in case we're using Core.js and not BridgedCore.js)
-sensor.username = "C1:5D:3A:AE:5E:FB";
+sensor.username = "C1:5D:3A:AE:5E:FE";
 sensor.pincode = "031-45-154";
 
 // Add the actual TemperatureSensor Service.
@@ -77,20 +76,9 @@ reader.on('event',function(data){
      sensor
       .getService(Service.TemperatureSensor)
       .setCharacteristic(Characteristic.CurrentTemperature, FAKE_SENSOR.currentTemperature);
-     FAKE_SENSOR.setTemperature(data.humidity);
      sensor
       .getService(Service.HumiditySensor)
       .setCharacteristic(Characteristic.CurrentRelativeHumidity, FAKE_SENSOR.currentHumidity);
    }
 });
-///randomize our temperature reading every 3 seconds
-// setInterval(function() {
-  
-//   FAKE_SENSOR.randomizeTemperature();
-  
-//   // update the characteristic value so interested iOS devices can get notified
-//   sensor
-//     .getService(Service.TemperatureSensor)
-//     .setCharacteristic(Characteristic.CurrentTemperature, FAKE_SENSOR.currentTemperature);
-  
-// }, 3000);
+

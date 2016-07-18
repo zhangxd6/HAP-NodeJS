@@ -23,6 +23,8 @@ function Reader(){
     var connectionString = process.env.ATTIC_CONNECTIONSTRING;
     var connectionString2 = process.env.GARAGE_CONNECTIONSTRING;
 
+    debug(connectionString);
+    debug(connectionString2);
     var clients = {
         garage:clientFromConnectionString(connectionString2),
         attic:clientFromConnectionString(connectionString)
@@ -67,7 +69,7 @@ function Reader(){
                     self.emit('event',data);  
                     //console.log(data);
                     var message = new Message(JSON.stringify(data));
-                    console.log("Sending message: " + message.getData());
+                    debug("Sending message: " + message.getData());
                     clients[data.deviceId].sendEvent(message, printResultFor('send'));
                }
             }
